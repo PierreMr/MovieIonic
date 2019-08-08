@@ -1,0 +1,103 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="end">
+        <ion-button (click)="dismiss()">
+          <ion-icon name="close"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      
+      <ion-title>Fermer</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content>
+  <form [formGroup]="commentForm" (ngSubmit)="onSubmit(commentForm)">
+    <ion-list-header>Votre avis</ion-list-header>
+
+    <ion-item>
+      <ion-label>Note</ion-label>
+      <ion-select type="number" okText="Ok" cancelText="Annuler" required formControlName="score">
+        <ion-select-option value="1">1</ion-select-option>
+        <ion-select-option value="2">2</ion-select-option>
+        <ion-select-option value="3">3</ion-select-option>
+        <ion-select-option value="4">4</ion-select-option>
+        <ion-select-option value="5">5</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <div *ngIf="commentForm.controls.score.touched && commentForm.controls.score.status == 'INVALID'">
+      <div *ngIf="commentForm.controls.score.errors.required">
+        <ion-text color="danger">
+          <small>
+            Note requise
+          </small>
+        </ion-text>
+      </div>
+    </div>
+
+    <ion-item>
+      <ion-label position="floating">Nom</ion-label>
+      <ion-input clearInput required formControlName="name"></ion-input>
+    </ion-item>
+
+    <div *ngIf="commentForm.controls.name.touched && commentForm.controls.name.status == 'INVALID'">
+      <div *ngIf="commentForm.controls.name.errors.required">
+        <ion-text color="danger">
+          <small>
+            Nom requis
+          </small>
+        </ion-text>
+      </div>
+      <div *ngIf="commentForm.controls.name.errors.minlength">
+        <ion-text color="danger">
+          <small>
+            Minimum {{ commentForm.controls.name.errors.minlength.requiredLength }} caractères. ({{ commentForm.controls.name.errors.minlength.actualLength }} / {{ commentForm.controls.name.errors.minlength.requiredLength }})
+          </small>
+        </ion-text>
+      </div>
+      <div *ngIf="commentForm.controls.name.errors.maxlength">
+        <ion-text color="danger">
+          <small>
+            Maximum {{ commentForm.controls.name.errors.maxlength.requiredLength }} caractères. ({{ commentForm.controls.name.errors.maxlength.actualLength }} / {{ commentForm.controls.name.errors.maxlength.requiredLength }})
+          </small>
+        </ion-text>
+      </div>
+    </div>
+
+    <ion-item>
+      <ion-label position="floating">Message</ion-label>
+      <ion-textarea required formControlName="comment"></ion-textarea>
+    </ion-item>
+
+    <div *ngIf="commentForm.controls.comment.touched && commentForm.controls.comment.status == 'INVALID'">
+      <div *ngIf="commentForm.controls.comment.errors.required">
+        <ion-text color="danger">
+          <small>
+            Commentaire requis
+          </small>
+        </ion-text>
+      </div>
+      <div *ngIf="commentForm.controls.comment.errors.minlength">
+        <ion-text color="danger">
+          <small>
+            Minimum {{ commentForm.controls.comment.errors.minlength.requiredLength }} caractères. ({{ commentForm.controls.comment.errors.minlength.actualLength }} / {{ commentForm.controls.comment.errors.minlength.requiredLength }})
+          </small>
+        </ion-text>
+      </div>
+      <div *ngIf="commentForm.controls.comment.errors.maxlength">
+        <ion-text color="danger">
+          <small>
+            Maximum {{ commentForm.controls.comment.errors.maxlength.requiredLength }} caractères. ({{ commentForm.controls.comment.errors.maxlength.actualLength }} / {{ commentForm.controls.comment.errors.maxlength.requiredLength }})
+          </small>
+        </ion-text>
+      </div>
+    </div>
+    
+    <div class="ion-text-center ion-margin-top">
+      <ion-button type="submit" [disabled]="!commentForm.valid">
+        <ion-icon name="send" class="ion-margin-end"></ion-icon>
+        Envoyer
+      </ion-button>
+    </div>
+  </form>
+</ion-content>

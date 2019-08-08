@@ -6,7 +6,9 @@ const routes: Routes = [
     path: '',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
+  { path: 'movie-detail/:id', loadChildren: () => import('./tab1/movie-detail/movie-detail.module').then(m => m.MovieDetailPageModule) },
 ];
+
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })

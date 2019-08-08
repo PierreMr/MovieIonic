@@ -1,14 +1,20 @@
 import { Injectable } from '@angular/core';
+import { Movie } from '../models/movie.interface';
+import { NavController } from '@ionic/angular';
+import { MovieComment } from '../models/movie-comment.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MoviesService {
-  movies: any[] = [];
+  movies: Movie[] = [];
 
-  constructor() {
+  constructor(
+    private navCtrl: NavController,
+  ) {
     this.movies = [
       {
+        id: 1,
         title: 'Le labyrinthe', 
         image:'https://image.tmdb.org/t/p/w300_and_h450_bestv2/7h9LUexxkTSX9YWSQ88b6PE1JdL.jpg', 
         resume:'Thomas, 16 ans, se réveille dans un ascenseur. Il ne sait plus qui il est ni d\'où il vient, et ne semble se rappeler que de son prénom. Lorsque l\'ascenseur s\'ouvre, il est accueilli par d\'autres garçons de son âge dans la clairière, un monde mystérieux entouré par un labyrinthe impénétrable, et où personne ne sait pourquoi il est là.', 
@@ -21,6 +27,7 @@ export class MoviesService {
         comments:[{name:'Fred', date: '2015-01-05', comment:'Très bon scénario !', score:5}, {name:'Djoe', date: '2014-10-11', comment:'Film flippant à souhait, mais on a adoré', score:4}]
       },
       {
+        id: 2,
         title: 'Meet Me In St. Gallen', 
         image:'https://image.tmdb.org/t/p/w300_and_h450_bestv2/uGntNjUx6YAzbVy7RDgxWnWsdet.jpg', 
         resume:'Jesse et Celeste se rencontrent à un moment inattendu dans leur vie. Ils réalisent alors que leurs noms sont les mêmes que ceux des personnages de la comédie romantique «Celeste & Jesse Forever».', 
@@ -33,6 +40,7 @@ export class MoviesService {
         comments:[{name:'Bill', date: '2018-02-17', comment:'Les acteurs sont excellents mais le scénario est parfois bancal ', score:3}]
       },
       {
+        id: 3,
         title: 'Coco', 
         image:'https://image.tmdb.org/t/p/w300_and_h450_bestv2/8AECsRLEDLoNvZ8JqrTFm0zBPqH.jpg', 
         resume:'Malgré la décevante absence totale de musique dans sa famille depuis des générations, Miguel rêve de devenir un grand musicien comme son idole Ernesto de la Cruz. Désespéré de pouvoir un jour montrer ses talents, il se retrouve à la suite d\'un mystérieux enchaînement d\'évènements dans l\'incroyavle et coloré Royaume des Morts. Sur sa route, il rencontre l\'escroc charmeur Hector et ensemble, ils partent pour un voyage extraordinaire pour découvrir la véritable histoire cachée de la famille de Miguel.', 
@@ -45,6 +53,7 @@ export class MoviesService {
         comments:[{name:'Noah', date: '2017-12-15', comment:'Tout simplement génial pour les enfants. Le thème de la mort dans ce dessin animé est parfaitement abordé. Des images à couper le souffle. Disney quoi', score:5}, {name:'Delphine', date: '2017-12-27', comment:'Très sympa :)', score:4}]
       },
       {
+        id: 4,
         title: 'La forme de l\'eau', 
         image:'https://image.tmdb.org/t/p/w300_and_h450_bestv2/c8lQpZWiRgv671BPu9bgzuFkveC.jpg', 
         resume:'Modeste employée d\'un laboratoire gouvernemental ultra-secret, Elisa mène une existence morne et solitaire, d\'autant plus isolée qu\'elle est muette. Sa vie bascule à jamais lorsqu\'elle et sa collègue Zelda découvrent une expérience encore plus secrète que les autres...', 
@@ -57,6 +66,7 @@ export class MoviesService {
         comments:[{name:'Natalya', date: '2018-03-07', comment:'A voir. Très bon film', score:5}, {name:'JC', date: '2018-03-11',comment:'Film fantastique sympa mais qui ne restera pas dans l\'histoire', score:3}]
       },
       {
+        id: 5,
         title: 'Black Panther', 
         image:'https://image.tmdb.org/t/p/w300_and_h450_bestv2/g94IcdzPswTYl1ISdgn2EwvaZtt.jpg', 
         resume:'Black Panther suit T’Challa qui, après les événements de Captain America : Civil War, retourne chez lui, dans la nation africaine isolée et technologiquement avancée du Wakanda, pour prendre possession du trône. Cependant, quand un vieil ennemi réapparaît sur le radar, le courage de T’Challa en tant que roi et Black Panther est testé quand il est entraîné dans un conflit qui met le sort entier du Wakanda et du monde en danger.', 
@@ -69,6 +79,7 @@ export class MoviesService {
         comments:[{name:'Jennifer', date: '2018-02-21', comment:'Un Marvel original et frais qui renouvelle le genre', score:5}, {name:'Ludo', date: '2018-02-28',comment:'Des scènes d\'action à couper le souffle, un monde fantastique loin de toute civilisation et une morale positive, un bon Marvel Americain quoi :)', score:4},{name:'Fred', date: '2018-03-01', comment:'Juste génialissime !', score:5},]
       },
       {
+        id: 6,
         title: 'Ca', 
         image:'https://image.tmdb.org/t/p/w300_and_h450_bestv2/3SUz0F0I2Bodcj9Ev2pYSWnE9zp.jpg', 
         resume:'À Derry, dans le Maine, sept gamins ayant du mal à s\'intégrer se sont regroupés au sein du "Club des Ratés". Rejetés par leurs camarades, ils sont les cibles favorites…', 
@@ -81,6 +92,7 @@ export class MoviesService {
         comments:[{name:'Mike', date: '2017-10-15', comment:'Excellent pour jouer à se faire peur, mais attention, n\'emmener surtout pas vos enfants au risque de les traumatiser à jamais des clowns :)', score:3}]
       },
       {
+        id: 7,
         title: 'Les nouveaux héros', 
         image:'https://image.tmdb.org/t/p/w300_and_h450_bestv2/7jAXeNgTPUY00txdsc5JloGCMBN.jpg', 
         resume:'Un génie de la robotique nommé Hiro Hamada, se retrouve embarqué dans un complot criminel qui menace de détruire la paisible ville high-tech de San Fransokyo. Avec l’aide d’un de ses plus proche compagnon – un robot nommé Baymax –, Hiro s’associe à une équipe de jeunes amateurs qui s’est donnée pour mission de sauver la population.', 
@@ -93,6 +105,7 @@ export class MoviesService {
         comments:[]
       },
       {
+        id: 8,
         title: 'Paddington 2', 
         image:'https://image.tmdb.org/t/p/w300_and_h450_bestv2/qXFEXAJq1gnF9A7wFbTu1OlgSOn.jpg', 
         resume:'Installé dans sa nouvelle famille à Londres. Paddington est devenu un membre populaire de la communauté locale. A la recherche du cadeau parfait pour le 100e anniversaire de sa chère Tante Lucy, Paddington tombe sur un livre animé exceptionnel. Il se met à multiplier les petits boulots dans le but de pouvoir l’acheter. Mais quand le livre est soudain volé, Paddington et la famille Brown vont devoir se lancer à la recherche du voleur…', 
@@ -105,6 +118,7 @@ export class MoviesService {
         comments:[]
       },
       {
+        id: 9,
         title: 'Daddy Cool', 
         image:'https://image.tmdb.org/t/p/w300_and_h450_bestv2/hrvJ9udxSMSy3GhJeDWuYTZB93x.jpg', 
         resume:'Adrien, 40 ans et totalement immature, se fait larguer par Maude, 35 ans, désireuse d’enfin fonder une famille. Pour tenter de reconquérir l’amour de sa vie, Adrien décide de monter dans le futur ex-appartement conjugal: une crèche à domicile… Le début, d\'une improbable expérience éducative...', 
@@ -117,6 +131,7 @@ export class MoviesService {
         comments:[]
       },
       {
+        id: 10,
         title: 'Blade Runner 2049', 
         image:'https://image.tmdb.org/t/p/w300_and_h450_bestv2/c0jCZGc0XMW1TpRP2nRCrwY3Tex.jpg', 
         resume:'En 2049, la société est fragilisée par les nombreuses tensions entre les humains et leurs esclaves créés par bioingénierie. L’officier K est un Blade Runner : il fait partie d’une force d’intervention d’élite chargée de trouver et d’éliminer ceux qui n’obéissent pas aux ordres des humains. Lorsqu’il découvre un secret enfoui depuis longtemps et capable de changer le monde, les plus hautes instances décident que c’est à son tour d’être traqué et éliminé. Son seul espoir est de retrouver Rick Deckard, un ancien Blade Runner qui a disparu depuis des décennies...', 
@@ -129,6 +144,7 @@ export class MoviesService {
         comments:[]
       },
       {
+        id: 11,
         title: 'La Planète des Singes - Suprématie', 
         image:'https://image.tmdb.org/t/p/w300_and_h450_bestv2/4Ar01t6sW1ZZBcbz2R1wqjzIBdr.jpg', 
         resume:'César et les Singes sont contraints de mener un combat dont ils ne veulent pas contre une armée d\'Humains dirigée par un Colonel impitoyable. Les Singes connaissent des pertes considérables et César, dans sa quête de vengeance, va devoir lutter contre ses instincts les plus noirs. Au terme d’un périple qui le conduira à un face à face avec le Colonel, les Singes et les Humains vont se livrer une guerre sans merci à l\’issue de laquelle une seule des deux espèces survivra - et dominera la planète.', 
@@ -143,7 +159,7 @@ export class MoviesService {
     ];
   }
 
-  getMovies() {
-    return this.movies;
+  getMovieById(id: number) {
+    return this.movies.find(movie => movie.id === id);
   }
 }

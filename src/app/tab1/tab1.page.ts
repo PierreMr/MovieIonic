@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MoviesService } from '../services/movies.service';
-import { Router } from '@angular/router';
 import { Movie } from '../models/movie.interface';
+import { NavController } from '@ionic/angular';
 
 
 @Component({
@@ -12,22 +12,21 @@ import { Movie } from '../models/movie.interface';
 export class Tab1Page {
   allMovies: Movie[] = [];
   movies: Movie[] = [];
-  movieInput: string;
 
   constructor(
-    public moviesService: MoviesService,
-    public router: Router,
+    private moviesService: MoviesService,
+    private navCtrl: NavController,
   ) {
     this.getMovies();
   }
   
   getMovies() {
-    this.allMovies = this.moviesService.getMovies();
+    this.allMovies = this.moviesService.movies;
     this.movies = [...this.allMovies];
   }
 
-  onMovieChange(): void {
-    const movieInput = this.movieInput.toLowerCase();
+  onMovieChange(input: string): void {
+    const movieInput = input.toLowerCase();
     this.movies = this.allMovies.filter(movie =>
         movie.title.toLowerCase().includes(movieInput)
         || movie.genre.filter(genre => genre.toLowerCase().includes(movieInput)).length > 0
@@ -40,7 +39,7 @@ export class Tab1Page {
     this.movies = this.allMovies;
   }
 
-  navDetail(movie) {
-    console.log(movie);
+  navDetail(movie: Movie) {
+    this.navCtrl.navigateForward('/movie-detail/' + movie.id);
   }
 }

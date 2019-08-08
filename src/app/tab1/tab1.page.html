@@ -1,13 +1,12 @@
 <ion-header>
   <ion-toolbar>
     <!-- <ion-title padding>Movies</ion-title> -->
-    <ion-searchbar 
+    <ion-searchbar #input
     placeholder="Search movies"
     animated
     autocomplete="on"
     showCancelButton="focus"
-    [(ngModel)]="movieInput"
-    (ionChange)="onMovieChange()"
+    (ionChange)="onMovieChange(input.value)"
     (ionCancel)="onMovieCancel()"
     ></ion-searchbar>
   </ion-toolbar>
@@ -17,7 +16,7 @@
   <ion-list>
     <ion-item *ngFor="let movie of movies" (click)="navDetail(movie)">
       <ion-avatar slot="start">
-        <img [src]="movie.image">
+        <ion-img [src]="movie.image"></ion-img>
       </ion-avatar>
       <ion-label>
         <h2>{{ movie.title }}</h2>

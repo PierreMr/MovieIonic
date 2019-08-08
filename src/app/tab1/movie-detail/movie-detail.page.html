@@ -1,0 +1,96 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+      <ion-button (click)="navHome()" *ngIf="navCtrl.lastNavId === 1">
+        <ion-icon name="arrow-round-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{ movie.title }}</ion-title>
+  </ion-toolbar>
+  
+  <ion-segment (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="infos" checked>
+      <ion-label>Infos</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="avis">
+      <ion-label>Avis</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngIf="segment === 'infos'">
+    <ion-img [src]="movie.image"></ion-img>
+
+    <div class="ion-text-center">
+      <ion-button (click)="modalTrailer(movie.traileryt)" shape="round">Voir la bande annonce</ion-button>
+      <h2 *ngIf="movie.comments.length > 0">
+        <ion-icon name="star"></ion-icon>
+        {{ getScore(movie.comments) }} / 5
+      </h2>
+    </div>
+
+    <ion-card-header>
+      <ion-card-subtitle>{{ movie.date | date:'dd / MM / yyyy' }}</ion-card-subtitle>
+      <ion-card-subtitle>{{ movie.duration | formatHm }}</ion-card-subtitle>
+      <ion-card-title>{{ movie.title }}</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+        <p>
+          <ion-text><strong><u>Résumé</u>: </strong></ion-text>
+          <ion-text>{{ movie.resume }}</ion-text>
+        </p>
+        <p>
+          <ion-text><strong><u>Genres</u>: </strong></ion-text>
+          <ion-text *ngFor="let genr of movie.genre">
+            {{ genr }} - 
+          </ion-text>
+        </p>
+        <p>
+          <ion-text><strong><u>Acteurs</u>: </strong></ion-text>
+          <ion-text *ngFor="let actor of movie.actors">
+            {{ actor }} - 
+          </ion-text>
+        </p>
+        <p>
+          <ion-text><strong><u>Directeur</u>: </strong></ion-text>
+          <ion-text>{{ movie.director }}</ion-text>
+        </p>
+      </ion-card-content>
+  </ion-card>
+
+  <div *ngIf="segment === 'avis'">
+    <ion-list *ngIf="movie.comments.length > 0">
+      <ion-item *ngFor="let comment of movie.comments">
+        <ion-icon name="menu" slot="start"></ion-icon>
+        <!-- <ion-avatar slot="start">
+          <ion-img src="https://randomuser.me/api/portraits/{{ rand(2) ? 'men' : 'women' }}/{{ rand(100) }}.jpg"></ion-img>
+        </ion-avatar> -->
+        <ion-label>
+          <h2>{{ comment.name }}</h2>
+          <h3>
+            <ion-icon name="star"></ion-icon>
+            {{ comment.score }} / 5
+          </h3>
+          <p>{{ comment.comment }}</p>
+          <p>{{ comment.date | date:'dd / MM / yyyy' }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+    <ion-list *ngIf="movie.comments.length === 0">
+      <ion-item>
+        <ion-label>
+          <p>Il n'y a pas d'avis pour ce film.</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+    
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button (click)="modalAddComment(movie)">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </div>
+</ion-content>
