@@ -52,10 +52,6 @@ export class MovieDetailPage implements OnInit {
     else return null;
   }
 
-  rand(nb: number) {
-    return Math.floor(Math.random() * nb);
-  }
-
   async modalTrailer(traileryt) {
     const modal = await this.modalCtrl.create({
       component: TrailorComponent,

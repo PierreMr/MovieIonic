@@ -65,9 +65,6 @@
     <ion-list *ngIf="movie.comments.length > 0">
       <ion-item *ngFor="let comment of movie.comments">
         <ion-icon name="menu" slot="start"></ion-icon>
-        <!-- <ion-avatar slot="start">
-          <ion-img src="https://randomuser.me/api/portraits/{{ rand(2) ? 'men' : 'women' }}/{{ rand(100) }}.jpg"></ion-img>
-        </ion-avatar> -->
         <ion-label>
           <h2>{{ comment.name }}</h2>
           <h3>
