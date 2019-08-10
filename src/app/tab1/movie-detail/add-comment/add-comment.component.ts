@@ -23,7 +23,7 @@ export class AddCommentComponent implements OnInit {
     this.commentForm = this.formBuilder.group({
       score: ['', Validators.required],
       name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
-      comment: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(255)]],
+      comment: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]],
       date: new Date(),
     });
   }
@@ -37,7 +37,6 @@ export class AddCommentComponent implements OnInit {
   onSubmit(commentForm) {
     const comment: MovieComment = commentForm.value;
     this.movie.comments = [...this.movie.comments, comment];
-    console.log(this.movie.comments);
     this.presentToast();
     this.dismiss();
   }
@@ -46,7 +45,7 @@ export class AddCommentComponent implements OnInit {
     const toast = await this.toastCtrl.create({
       message: 'Votre avis a bien été enregistré.',
       duration: 2000,
-      color: 'secondary',
+      color: 'success',
       buttons: [
         {
           icon: 'close',

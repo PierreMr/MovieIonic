@@ -19,7 +19,7 @@
         <ion-img [src]="movie.image"></ion-img>
       </ion-avatar>
       <ion-label>
-        <h2>{{ movie.title }}</h2>
+        <ion-text color="red"><h2>{{ movie.title }}</h2></ion-text>
         <p *ngFor="let genre of movie.genre">{{ genre }} </p>
       </ion-label>
       <ion-icon name="arrow-round-forward" slot="end"></ion-icon>
